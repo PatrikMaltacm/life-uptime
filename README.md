@@ -155,10 +155,8 @@ INSERT INTO ping_logs (monitor_id, status_code, latency_ms, timestamp, error) VA
 4. **Execute a aplicação:**
 
 ```bash
-go run cmd/main.go
+go run cmd/api/main.go
 ```
-*(Nota: Ajuste o caminho `cmd/main.go` conforme necessário, dependendo de como está o arquivo principal dentro da pasta `cmd`)*
-
 ---
 
 ## 🧪 Testando a API
