@@ -11,9 +11,10 @@ type PingLogRequest struct {
 }
 
 type PingLogResponse struct {
+	ID         string    `json:"id"`
 	MonitorID  string    `json:"monitor_id"`
-	StatusCode int       `json:"status_code"`
-	Latency    int64     `json:"latency_ms"`
+	StatusCode *int      `json:"status_code"`
+	LatencyMs  *int64    `json:"latency_ms"`
 	Timestamp  time.Time `json:"timestamp"`
-	Error      string    `json:"error"`
+	Error      *string   `json:"error"`
 }

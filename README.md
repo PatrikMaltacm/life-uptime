@@ -1,6 +1,46 @@
-# life-uptime
+# Life Uptime
 
+O Life Uptime é uma aplicação de monitoramento de código aberto (open-source) desenvolvida em Go. Ele permite que você monitore a integridade e a disponibilidade de suas aplicações web, APIs e serviços, realizando pings em intervalos definidos e registrando os códigos de status HTTP, latência e quaisquer possíveis erros.
 
+## Funcionalidades
+
+- **Monitoramento de URLs:** Verifique continuamente a disponibilidade de qualquer endpoint HTTP/HTTPS.
+- **Intervalos Customizados:** Defina intervalos específicos de checagem para cada monitor.
+- **Histórico de Ping:** Mantenha um registro do histórico de latência, códigos de status e tempo de inatividade (downtime).
+- **API RESTful:** Gerencie seus monitores facilmente através de um conjunto completo de endpoints de API.
+- **Open Source:** Sinta-se à vontade para usar, modificar e contribuir!
+
+## Tecnologias Utilizadas
+
+- **Go (Golang):** Backend rápido, compilado e eficiente.
+- **Gin Framework:** Framework web HTTP de alta performance.
+- **PostgreSQL:** Banco de dados relacional confiável para armazenar os monitores e logs de ping.
+
+## Como Começar
+
+### Pré-requisitos
+
+- [Go](https://golang.org/doc/install) (1.20+)
+- [PostgreSQL](https://www.postgresql.org/download/)
+
+### Instalação
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/PatrikMaltacm/life-uptime.git
+   cd life-uptime
+   ```
+
+2. Instale as dependências:
+   ```bash
+   go mod download
+   ```
+
+### Configuração do Banco de Dados
+
+Execute os comandos SQL abaixo em seu banco de dados PostgreSQL para criar as tabelas necessárias e inserir alguns dados de teste:
+
+```sql
 CREATE TABLE IF NOT EXISTS monitors (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     url TEXT NOT NULL,
@@ -20,7 +60,6 @@ CREATE TABLE IF NOT EXISTS ping_logs (
 
 CREATE INDEX idx_ping_logs_monitor_id ON ping_logs(monitor_id);
 CREATE INDEX idx_ping_logs_timestamp ON ping_logs(timestamp);
-
 
 -- 1. Limpa os dados existentes para evitar duplicatas nos testes
 TRUNCATE TABLE ping_logs, monitors RESTART IDENTITY CASCADE;
@@ -46,4 +85,12 @@ INSERT INTO ping_logs (monitor_id, status_code, latency_ms, timestamp, error) VA
 -- 5. Insere um log de erro para o monitor inativo
 INSERT INTO ping_logs (monitor_id, status_code, latency_ms, timestamp, error) VALUES
 ('550e8400-e29b-41d4-a716-446655440002', 0, 0, NOW(), 'dial tcp: lookup site-inexistente-teste.com: no such host');
+```
 
+## Testando a API
+
+Uma collection do Postman está incluída na pasta raiz do projeto (`Life-Uptime.postman_collection.json`) para facilitar o teste de todos os endpoints disponíveis da API. Basta importá-la no Postman para começar rapidamente!
+
+## Como Contribuir
+
+Contribuições são bem-vindas! Se você encontrar algum bug ou quiser propor uma nova funcionalidade, por favor abra uma *issue* ou envie um *pull request*. Este projeto é orgulhosamente Open Source.

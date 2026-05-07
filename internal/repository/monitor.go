@@ -156,7 +156,7 @@ func (r *MonitorRepository) GetAllActive(ctx context.Context) ([]model.MonitorRe
 
 func (r *MonitorRepository) GetPingHistory(ctx context.Context, monitorID string) ([]model.PingLogResponse, error) {
 	query := `
-		SELECT monitor_id, status_code, latency_ms, timestamp, error
+		SELECT id, monitor_id, status_code, latency_ms, timestamp, error
 		FROM ping_logs
 		WHERE monitor_id = $1
 		ORDER BY timestamp DESC
@@ -174,9 +174,10 @@ func (r *MonitorRepository) GetPingHistory(ctx context.Context, monitorID string
 	for rows.Next() {
 		var l model.PingLogResponse
 		if err := rows.Scan(
+			&l.ID,
 			&l.MonitorID,
 			&l.StatusCode,
-			&l.Latency,
+			&l.LatencyMs,
 			&l.Timestamp,
 			&l.Error,
 		); err != nil {
