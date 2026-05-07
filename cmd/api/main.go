@@ -9,6 +9,7 @@ import (
 	"github.com/PatrikMaltacm/life-uptime/internal/handler"
 	"github.com/PatrikMaltacm/life-uptime/internal/repository"
 	"github.com/PatrikMaltacm/life-uptime/internal/worker"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -31,6 +32,8 @@ func main() {
 	monitorHandler := handler.NewMonitorHandler(monitorRepo)
 
 	router := gin.Default()
+	router.Use(cors.Default())
+	
 	v1 := router.Group("/api/v1")
 
 	handler.InitRoutes(v1, monitorHandler)
