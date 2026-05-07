@@ -96,7 +96,15 @@ cd life-uptime
 go mod tidy
 ```
 
-3. **Configuração do Banco de Dados:**
+3. **Configuração de Variáveis de Ambiente:**
+
+Crie um arquivo `.env` na raiz do projeto e defina a variável `DATABASE_URL` com a string de conexão do banco de dados:
+
+```env
+DATABASE_URL='postgresql://usuario:senha@host:porta/nome_do_banco?sslmode=disable'
+```
+
+4. **Configuração do Banco de Dados:**
 
 Execute os comandos SQL abaixo no PostgreSQL para criar as tabelas e inserir alguns dados de teste:
 
@@ -152,7 +160,7 @@ INSERT INTO ping_logs (monitor_id, status_code, latency_ms, timestamp, error) VA
 
 </details>
 
-4. **Execute a aplicação:**
+5. **Execute a aplicação:**
 
 ```bash
 go run cmd/api/main.go
