@@ -15,5 +15,5 @@ type PingLogResponse struct {
 	StatusCode int       `json:"status_code"`
 	Latency    int64     `json:"latency_ms"`
 	Timestamp  time.Time `json:"timestamp"`
-	Error      string    `json:"error,omitempty"`
+	Error      string    `json:"error"`
 }

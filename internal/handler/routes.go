@@ -10,7 +10,10 @@ func InitRoutes(r *gin.RouterGroup, h *MonitorHandler) {
 	monitor := r.Group("/monitors")
 	{
 		monitor.GET("/:id", h.GetMonitor)
+		monitor.GET("/:id/history", h.GetHistoryMonitor)
 		monitor.GET("/", h.GetAllMonitors)
 		monitor.POST("/", h.CreateMonitor)
+		monitor.DELETE("/:id", h.DeleteMonitor)
+		monitor.PUT("/:id", h.UpdateMonitor)
 	}
 }
